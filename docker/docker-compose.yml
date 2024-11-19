@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql_new:
+    container_name: mysql_new_container # 确保新容器名称唯一
+    networks:
+      - mysql_network_new
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3307:3306" # 宿主机的3307映射到容器的3306，避免与3306冲突
+    environment:
+      MYSQL_ROOT_PASSWORD: newroot1234
+      MYSQL_DATABASE: new_database
+      MYSQL_USER: newuser
+      MYSQL_PASSWORD: newuser1234
+    volumes:
+      - ./mysql_data_new:/var/lib/mysql # 确保数据卷独立
+
+networks:
+  mysql_network_new:
+    external: true
+
+volumes:
+  mysql_data_new:
